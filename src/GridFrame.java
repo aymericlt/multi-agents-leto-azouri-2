@@ -58,9 +58,10 @@ public class GridFrame extends JFrame {
         int blue = color.getBlue();
 
         // Calcul des nouvelles valeurs des composantes RGB
-        int newRed = (int) (red + (255 - red) * 0.6);
-        int newGreen = (int) (green + (255 - green) * 0.6);
-        int newBlue = (int) (blue + (255 - blue) * 0.6);
+        double decolorFactor = 0.6;
+        int newRed = (int) (red + (255 - red) * decolorFactor);
+        int newGreen = (int) (green + (255 - green) * decolorFactor);
+        int newBlue = (int) (blue + (255 - blue) * decolorFactor);
 
         // Vérification et ajustement des valeurs
         newRed = Math.min(newRed, 255);

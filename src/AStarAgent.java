@@ -8,43 +8,25 @@ public class AStarAgent extends Agent {
 
     @Override
     public void run() {
-        this.mailBox.put(this.getId(), "STOP");
+        this.mailBox.put(this.getId(), "OK");
         System.out.println(mailBox);
         while (!this.isArrived()) {
-//            synchronized (this.mailBox) {
-//                boolean canMove = true;
-//                for (String key : mailBox.keySet()) {
-//                    String value = mailBox.get(key);
-//                    if (value != "STOP") {
-//                        canMove = false;
-//                        break;
-//                    }
-//                }
-//
-//                if (canMove) {
-//                    this.mailBox.replace(this.getId(), "MOVE");
-//                }
-//
-//            }
             synchronized (mailBox) {
                 AStarMove();
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (getDirection() == Direction.BLOCKED) { //Evite de retourner bloquer directement la fonction syncrhonized dans le cas bloqué
+                try {
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }
-
-//        if (this.getId() != null) {
-//            System.out.println("Direction pour " + this.getId() + " : " + this.getDirection());
-//            AStarMove();
-//            try {
-//                Thread.sleep(500);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
 
     }
 

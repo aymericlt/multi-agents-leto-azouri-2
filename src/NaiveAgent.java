@@ -8,7 +8,7 @@ public class NaiveAgent extends Agent {
 
     @Override
     public void run() {
-        this.mailBox.put(this.getId(), "STOP");
+        this.mailBox.put(this.getId(), "OK");
         while (!this.isArrived()) {
             synchronized (mailBox) {
                 NaiveMove();
