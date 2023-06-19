@@ -1,8 +1,8 @@
 import java.awt.*;
 
-public class CommunicativeAgent extends Agent {
+public class AStarAgent extends Agent {
 
-    public CommunicativeAgent(String id, int startX, int startY, int targetX, int targetY, Color color, Grid grid) {
+    public AStarAgent(String id, int startX, int startY, int targetX, int targetY, Color color, Grid grid) {
         super(id, startX, startY, targetX, targetY, color, grid);
     }
 
@@ -27,7 +27,7 @@ public class CommunicativeAgent extends Agent {
 //
 //            }
             synchronized (mailBox) {
-                CommunicativeMove();
+                AStarMove();
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -38,7 +38,7 @@ public class CommunicativeAgent extends Agent {
 
 //        if (this.getId() != null) {
 //            System.out.println("Direction pour " + this.getId() + " : " + this.getDirection());
-//            CommunicativeMove();
+//            AStarMove();
 //            try {
 //                Thread.sleep(500);
 //            } catch (InterruptedException e) {
@@ -52,7 +52,7 @@ public class CommunicativeAgent extends Agent {
         return AStar.getNextMove(grid, this, grid.getCells()[this.targetX][this.targetY]);
     }
 
-    private synchronized void CommunicativeMove() {
+    private synchronized void AStarMove() {
         int previousX = x;
         int previousY = y;
         boolean moved = false;

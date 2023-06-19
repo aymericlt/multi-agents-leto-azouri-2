@@ -68,15 +68,44 @@ public class Main {
         Color c3 = new Color(22, 152, 171);
         Color c4 = new Color(231, 209, 6);
 
-        CommunicativeAgent agentA = new CommunicativeAgent("A", 0, 2, 0, 3, c1, grid);
-        CommunicativeAgent agentB = new CommunicativeAgent("B", 1, 2, 1, 3, c2, grid);
-        CommunicativeAgent agentC = new CommunicativeAgent("C", 2, 2, 2, 3, c3, grid);
-        CommunicativeAgent agentD = new CommunicativeAgent("D", 0, 0, 0, 4, c4, grid);
+        AStarAgent agentA = new AStarAgent("A", 0, 2, 0, 3, c1, grid);
+        AStarAgent agentB = new AStarAgent("B", 1, 2, 1, 3, c2, grid);
+        AStarAgent agentC = new AStarAgent("C", 2, 2, 2, 3, c3, grid);
+        AStarAgent agentD = new AStarAgent("D", 0, 0, 0, 4, c4, grid);
 
         grid.addAgent(agentA);
         grid.addAgent(agentB);
         grid.addAgent(agentC);
         grid.addAgent(agentD);
+
+        return grid;
+    }
+
+    public static Grid setup4() {
+        Grid grid = new Grid(5);
+
+        Color c1 = new Color(7, 189, 7);
+        Color c2 = new Color(117, 23, 147);
+        Color c3 = new Color(22, 152, 171);
+        Color c4 = new Color(231, 209, 6);
+        Color c5 = new Color(225, 20, 20);
+        Color c6 = new Color(93, 93, 93);
+
+        AStarAgent agentA = new AStarAgent("A", 0, 2, 0, 3, c1, grid);
+        AStarAgent agentB = new AStarAgent("B", 1, 2, 1, 3, c2, grid);
+        AStarAgent agentC = new AStarAgent("C", 2, 2, 2, 3, c3, grid);
+        AStarAgent agentE = new AStarAgent("E", 3, 2, 3, 3, c5, grid);
+        AStarAgent agentF = new AStarAgent("F", 4, 2, 4, 3, c6, grid);
+
+        AStarAgent agentD = new AStarAgent("D", 0, 0, 0, 4, c4, grid);
+
+
+        grid.addAgent(agentA);
+        grid.addAgent(agentB);
+        grid.addAgent(agentC);
+        grid.addAgent(agentD);
+        grid.addAgent(agentE);
+        grid.addAgent(agentF);
 
         return grid;
     }
