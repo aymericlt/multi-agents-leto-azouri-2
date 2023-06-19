@@ -1,6 +1,6 @@
 public class Cell {
-    private int x;
-    private int y;
+    public int x;
+    public int y;
     private Agent agent;
 
     public Cell(int x, int y) {

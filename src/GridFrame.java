@@ -46,13 +46,13 @@ public class GridFrame extends JFrame {
     }
 
 
-    public void update() {
+    public synchronized void update() {
         populatePanel();
         panel.revalidate();
         panel.repaint();
     }
 
-    private Color lightColor(Color color) {
+    private Color lightColor(Color color) { // Création d'un couleur plus claire à partir de la couleur entrée pour créer du contraste
         int red = color.getRed();
         int green = color.getGreen();
         int blue = color.getBlue();

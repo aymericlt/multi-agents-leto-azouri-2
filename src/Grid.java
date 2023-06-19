@@ -1,9 +1,14 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Grid {
     private Cell[][] cells;
     private List<Agent> agents;
+
+    public GridFrame gridFrame;
+
+    public ConcurrentHashMap<String, String> gridMailBox;
 
     public Grid(int size) {
         this.cells = new Cell[size][size];
@@ -14,6 +19,8 @@ public class Grid {
                 this.cells[i][j] = new Cell(i, j);
             }
         }
+
+        this.gridMailBox = new ConcurrentHashMap<>();
     }
 
     public Cell[][] getCells() {
@@ -37,31 +44,44 @@ public class Grid {
         this.cells[x][y].setAgent(null);
     }
 
-    public void moveAgentsSimple() {
-        for (Agent agent : this.agents) {
-            int x = agent.getX();
-            int y = agent.getY();
-            agent.moveSimple(this);
-            removeAgentFromCell(x, y);
-            this.cells[agent.getX()][agent.getY()].setAgent(agent);
-            if (agent.getX() == x && agent.getY() == y) {
-                System.out.println(agent.getId() + " is stuck at (" + agent.getX() + ", " + agent.getY() + ")");
-            } else {
-                System.out.println(agent.getId() + " moved to (" + agent.getX() + ", " + agent.getY() + ")");
-            }
+
+    public boolean moveAgent(int x1, int y1, int x2, int y2) {
+        Agent agentToMove = this.cells[x1][y1].getAgent();
+        if (this.cells[x2][y2].getAgent() == null) {
+            removeAgentFromCell(x1, y1);
+            this.cells[x2][y2].setAgent(agentToMove);
+            return true;
+        } else {
+            return false;
         }
+
     }
+//    public void moveAgentsSimple() {
+//        for (Agent agent : this.agents) {
+//            int x = agent.getX();
+//            int y = agent.getY();
+//            agent.moveSimple(this);
+//            removeAgentFromCell(x, y);
+//            this.cells[agent.getX()][agent.getY()].setAgent(agent);
+//            if (agent.getX() == x && agent.getY() == y) {
+//                System.out.println(agent.getId() + " is stuck at (" + agent.getX() + ", " + agent.getY() + ")");
+//            } else {
+//                System.out.println(agent.getId() + " moved to (" + agent.getX() + ", " + agent.getY() + ")");
+//            }
+//        }
+//    }
 
     public boolean isDone() {
         for (Agent agent : this.agents) {
-            if (agent.getX() != agent.getTargetX() || agent.getY() != agent.getTargetY()) {
+            if (!agent.isArrived()) {
                 return false;
             }
         }
         return true;
     }
 
-    public void printGrid() {
+    public synchronized void printGrid() {
+        System.out.println("===============");
         for (int i = 0; i < this.cells.length; i++) {
             for (int j = 0; j < this.cells[i].length; j++) {
                 System.out.print(" ");
@@ -74,5 +94,9 @@ public class Grid {
             }
             System.out.println();
         }
+    }
+
+    public ConcurrentHashMap<String, String> getGridMailBox() {
+        return gridMailBox;
     }
 }

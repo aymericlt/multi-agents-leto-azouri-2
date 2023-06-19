@@ -1,52 +1,31 @@
 import java.awt.*;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class Agent {
-    private String id;
-    private int x;
-    private int y;
-    private int targetX;
-    private int targetY;
+public abstract class Agent implements Runnable {
+    public String id;
+    public int x;
+    public int y;
+    public int targetX;
+    public int targetY;
 
     private Color color;
 
     public Grid grid;
 
-    public Agent(String id, int startX, int startY, int targetX, int targetY, Color color) {
+    public ConcurrentHashMap<String, String> mailBox;
+
+    public Agent(String id, int startX, int startY, int targetX, int targetY, Color color, Grid grid) {
         this.id = id;
         this.x = startX;
         this.y = startY;
         this.targetX = targetX;
         this.targetY = targetY;
         this.color = color;
+        this.grid = grid;
+        this.mailBox = grid.getGridMailBox();
     }
 
-    public void moveSimple(Grid grid) {
-        boolean moved = false;
-
-        if (this.x < this.targetX) {
-            if (grid.isCellEmpty(this.x + 1, this.y)) {
-                this.x++;
-                moved = true;
-            }
-        } else if (this.x > this.targetX) {
-            if (grid.isCellEmpty(this.x - 1, this.y)) {
-                this.x--;
-                moved = true;
-            }
-        }
-
-        if (this.y < this.targetY) {
-            if (grid.isCellEmpty(this.x, this.y + 1) && !moved) {
-                this.y++;
-                moved = true;
-            }
-        } else if (this.y > this.targetY) {
-            if (grid.isCellEmpty(this.x, this.y - 1) && !moved) {
-                this.y--;
-                moved = true;
-            }
-        }
-    }
+    public abstract void run();
 
     // getters and setters here
     public String getId() {
@@ -79,6 +58,10 @@ public class Agent {
 
     public void setY(int y){
         this.y = y;
+    }
+
+    public boolean isArrived() {
+        return (x == targetX && y == targetY);
     }
 
 }
