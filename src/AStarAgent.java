@@ -55,13 +55,13 @@ public class AStarAgent extends Agent {
                 }
                 break;
             case LEFT:
-                if (grid.isCellEmpty(this.x - 1, this.y)) { //A vérifier
+                if (grid.isCellEmpty(this.x - 1, this.y)) {
                     this.x--;
                     moved = true;
                 }
                 break;
             case RIGHT:
-                if (grid.isCellEmpty(this.x + 1, this.y)) { //A vérifier
+                if (grid.isCellEmpty(this.x + 1, this.y)) {
                     this.x++;
                     moved = true;
                 }

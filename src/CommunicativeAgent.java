@@ -20,12 +20,9 @@ public class CommunicativeAgent extends Agent {
                         gameBlocked = true;
                     }
                 }
-
                 System.out.println("(" + this.getId() + ") " + mailBox);
-
                 if (!gameBlocked) {
                     CommunicativeMove();
-
                     if (getDirection() == Direction.BLOCKED && getBlockingAgent().isArrived()) {
                         System.out.println("I am " + getId() + " and I am blocked by " + getBlockingAgent().getId());
                         this.mailBox.put(getBlockingAgent().getId(), "AWAY");
@@ -35,18 +32,13 @@ public class CommunicativeAgent extends Agent {
                     if (mailBox.get(this.getId()) == "BLOCKED") {
                         System.out.println("Waiting for " + getBlockingAgent().getId() + " to move");
                     } else if (mailBox.get(this.getId()) == "AWAY") {
-
-
                         System.out.println("I am " + getId() + " and I am moving away");
-
                         randomMove(this);
-
                         for (String key : mailBox.keySet()) {
                             if (mailBox.get(key).equals("BLOCKED")) {
                                 this.mailBox.replace(key, "TRYAGAIN");
                             }
                         }
-
                     } else if (mailBox.get(this.getId()) == "TRYAGAIN") {
                         System.out.println("I am " + getId() + " and I will try again");
                         CommunicativeMove();
@@ -65,17 +57,8 @@ public class CommunicativeAgent extends Agent {
                                 }
                             }
                         }
-
-
                     }
                 }
-
-
-//                try {
-//                    Thread.sleep(200);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
             }
 
             try {
@@ -156,43 +139,14 @@ public class CommunicativeAgent extends Agent {
         return AStar.getNextMove(grid, this, grid.getCells()[this.targetX][this.targetY]);
     }
 
-//    public Agent getBlockingAgent() {
-//        int deltaX = targetX - this.x;
-//        int deltaY = targetY - this.y;
-//
-//        // Determine the direction to move in
-//        int stepX = (deltaX != 0) ? (int) Math.signum(deltaX) : 0;
-//        int stepY = (deltaY != 0) ? (int) Math.signum(deltaY) : 0;
-//
-//        // Start checking from the next cell
-//        int currentX = this.x + stepX;
-//        int currentY = this.y + stepY;
-//
-//        // Check for an agent in the path in a straight line towards the target
-//        while (currentX != targetX || currentY != targetY) {
-//            // Check if the cell contains an agent
-//            if (grid.getCells()[currentX][currentY].getAgent() != null) {
-//                return grid.getCells()[currentX][currentY].getAgent(); // Return the blocking agent
-//            }
-//
-//            // Move to the next cell in the direction of the target
-//            currentX += stepX;
-//            currentY += stepY;
-//        }
-//
-//        // No blocking agent found
-//        return null;
-//    }
-
     public Agent getBlockingAgent() {
         int currentX = x;
         int currentY = y;
         int objectiveX = targetX;
         int objectiveY = targetY;
-        int[] obstacleCoordinates = new int[2];
 
         while (currentX != objectiveX || currentY != objectiveY) {
-            if (currentX != x || currentY != y) {  // Ne pas vérifier le point de départ
+            if (currentX != x || currentY != y) {
                 if (this.grid.getCells()[currentX][currentY].getAgent() != null) {  // Si un obstacle est rencontré
                     return this.grid.getCells()[currentX][currentY].getAgent();
                 }
@@ -262,7 +216,5 @@ public class CommunicativeAgent extends Agent {
                 e.printStackTrace();
             }
         }
-
-        ;
     }
 }
